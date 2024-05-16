@@ -1,0 +1,46 @@
+services:
+  mirror-nginx:
+    container_name: mirror-nginx
+    image: ghcr.io/mirror-mwt/nginx-docker:main
+    network_mode: host
+    volumes:
+      - /mnt/storage/mirror:/mirror:ro
+    restart: "unless-stopped"
+  mirror-primary:
+    container_name: mirror-primary
+    image: ghcr.io/mirror-mwt/mirror-docker:main
+    env_file: mirror-secret.env
+    volumes:
+      - /mnt/storage/mirror:/mirror
+    restart: "unless-stopped"
+  makerepo-rclone:
+    container_name: makerepo-rclone
+    image: ghcr.io/mirror-mwt/makerepo-docker:main
+    environment:
+      - MWT_GITHUB_URL=https://api.github.com/repos/rclone/rclone/releases
+      - REPREPRO_ORIGIN=mirror.mwt.me
+      - REPREPRO_LABEL=Rclone
+      - REPREPRO_ARCHITECTURES=amd64 i386 arm64 armhf armel mips mipsel
+    env_file:
+      - makerepo-secret.env
+    volumes:
+      - /mnt/storage/mirror/rclone:/dist
+      - reprepro-db-rclone:/root/reprepro/db
+    restart: "unless-stopped"
+  makerepo-zoom:
+    container_name: makerepo-zoom
+    image: ghcr.io/mirror-mwt/makerepo-docker:main
+    environment:
+      - MWT_DIRECT_DOWNLOADS=https://zoom.us/client/latest/zoom_amd64.deb https://zoom.us/client/latest/zoom_x86_64.rpm
+      - REPREPRO_ORIGIN=mirror.mwt.me
+      - REPREPRO_LABEL=Zoom
+      - REPREPRO_ARCHITECTURES=amd64
+    env_file:
+      - makerepo-secret.env
+    volumes:
+      - /mnt/storage/mirror/zoom:/dist
+      - reprepro-db-zoom:/root/reprepro/db
+    restart: "unless-stopped"
+volumes:
+  reprepro-db-rclone:
+  reprepro-db-zoom:
