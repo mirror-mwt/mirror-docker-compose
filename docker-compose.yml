@@ -54,7 +54,7 @@ services:
       - REPREPRO_ARCHITECTURES=amd64
       - REPREPRO_SIGNWITH=B7BE5AC2
     env_file:
-      - secret.env
+      - makerepo-secret.env
     volumes:
       - /mnt/storage/mirror/rstudio/deb/jammy:/dist/deb
       - /mnt/storage/mirror/rstudio/rpm:/dist/rpm
@@ -70,7 +70,7 @@ services:
       - REPREPRO_ARCHITECTURES=amd64
       - REPREPRO_SIGNWITH=B7BE5AC2
     env_file:
-      - secret.env
+      - makerepo-secret.env
     volumes:
       - /mnt/storage/mirror/rstudio/deb/focal:/dist/deb
       - reprepro-db-rstudio-focal:/root/reprepro/db
