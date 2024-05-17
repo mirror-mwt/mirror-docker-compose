@@ -21,6 +21,7 @@ services:
       - REPREPRO_ORIGIN=mirror.mwt.me
       - REPREPRO_LABEL=Rclone
       - REPREPRO_ARCHITECTURES=amd64 i386 arm64 armhf armel mips mipsel
+      - REPREPRO_SIGNWITH=B7BE5AC2
     env_file:
       - makerepo-secret.env
     volumes:
@@ -35,6 +36,7 @@ services:
       - REPREPRO_ORIGIN=mirror.mwt.me
       - REPREPRO_LABEL=Zoom
       - REPREPRO_ARCHITECTURES=amd64
+      - REPREPRO_SIGNWITH=B7BE5AC2
     env_file:
       - makerepo-secret.env
     volumes:
@@ -50,6 +52,7 @@ services:
       - REPREPRO_LABEL=RStudio
       - REPREPRO_CODENAMES=jammy
       - REPREPRO_ARCHITECTURES=amd64
+      - REPREPRO_SIGNWITH=B7BE5AC2
     env_file:
       - secret.env
     volumes:
@@ -65,6 +68,7 @@ services:
       - REPREPRO_LABEL=RStudio
       - REPREPRO_CODENAMES=focal
       - REPREPRO_ARCHITECTURES=amd64
+      - REPREPRO_SIGNWITH=B7BE5AC2
     env_file:
       - secret.env
     volumes:
