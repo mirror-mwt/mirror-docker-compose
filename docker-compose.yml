@@ -1,7 +1,14 @@
 services:
-  mirror-nginx:
-    container_name: mirror-nginx
+  nginx:
+    container_name: nginx
     image: ghcr.io/mirror-mwt/nginx-docker:main
+    network_mode: host
+    volumes:
+      - /mnt/storage/mirror:/mirror:ro
+    restart: "unless-stopped"
+  rsyncd:
+    container_name: rsyncd
+    image: ghcr.io/mirror-mwt/rsyncd-docker:main
     network_mode: host
     volumes:
       - /mnt/storage/mirror:/mirror:ro
